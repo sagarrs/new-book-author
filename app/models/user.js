@@ -66,7 +66,7 @@ userSchema.pre("save", function(next){
     if(user.isNew){
         bcryptjs.genSalt(10)
         .then((salt) => {
-            bcryptjs.hash(user.password, salt)
+            bcryptjs.hash(salt, user.password)
                 .then((encryptedPwd) => {
                     user.password = encryptedPwd
                     next()
