@@ -46,7 +46,7 @@ router.post("/login", (req, res) => {
 
 router.get("/account", authenticateUser, (req, res) => {
     const {user} = req
-    // res.send is doen here and not in middleware is coz it shouldnt be done, and there might be 
+    // res.send is done here and not in middleware is coz it shouldnt be done, and there might be 
     // some ops that needs to be done later, therefore we should send from controller
     res.send({user})
 })
