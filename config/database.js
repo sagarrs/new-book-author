@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 mongoose.Promise = global.Promise
 
-const CONNECTION_URI = "mongodb://localhost:27017/author"
+const CONNECTION_URI = "mongodb://localhost:27017/new-author"
 
 mongoose.connect(CONNECTION_URI, {useNewUrlParser: true})
     .then(() => {

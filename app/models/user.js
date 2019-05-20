@@ -60,15 +60,44 @@ const userSchema = new Schema({
 
 // hooks can be written here
 
+// userSchema.pre("save", function(next){
+//     const user = this
+//     console.log("user is here")
+//     console.log(user)
+//     if(user.isNew){
+//         bcryptjs.genSalt(10)
+//         .then((salt) => {
+//             console.log("salt is here")
+//             console.log(salt)
+//             bcryptjs.hash(salt, user.password)
+//                 .then((encryptedPwd) => {
+//                     console.log("encrypted pwd")
+//                     console.log(encryptedPwd)
+//                     user.password = encryptedPwd
+//                     next()
+//                 })
+//                 .catch((err) => {
+//                     console.log(err)
+//                 })
+//         })
+//         .catch((err) => {
+//             console.log(err)
+//         })
+//     }else{
+//         next()
+//     }
+// })
+
+
 userSchema.pre("save", function(next){
     const user = this
 
     if(user.isNew){
         bcryptjs.genSalt(10)
         .then((salt) => {
-            bcryptjs.hash(salt, user.password)
+            bcryptjs.hash(user.password, salt)
                 .then((encryptedPwd) => {
-                    user.password = encryptedPwd
+                    user.password =  encryptedPwd
                     next()
                 })
                 .catch((err) => {
@@ -81,8 +110,8 @@ userSchema.pre("save", function(next){
     }else{
         next()
     }
+    
 })
-
 
 userSchema.statics.findByCredentials = function(email, password){
     const User = this
