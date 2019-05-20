@@ -2,9 +2,27 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const bookSchema = new Schema({
-    bookName: {
+    bookTitle: {
         type: String
     },
+    bookBody: {
+        type: String
+    },
+    isPublished: {
+        type: Boolean
+    },
+    publishDate: {
+        type: Date
+    },
+    previewImageUrl: {
+        type: String
+    },
+    tagName: [
+
+    ],
+    comments: [
+
+    ],
     user_id: [
 
     ],

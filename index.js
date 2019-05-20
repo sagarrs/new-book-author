@@ -2,6 +2,7 @@ const express = require("express")
 var cors = require("cors")
 const {mongoose} = require("./config/database")
 const {userRouter} = require("./app/controllers/usersController")
+const {bookRouter} = require("./app/controllers/booksController")
 
 const port = 3005
 
@@ -19,6 +20,7 @@ app.get("/", function(req, res){
 // app.use('/upload', express.static('upload'))
 
 app.use("/users", userRouter)
+app.use("/books", bookRouter)
 
 
 app.listen(port, function(){
