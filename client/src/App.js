@@ -33,13 +33,19 @@ function App(props) {
               </ul>  
           </nav> */}
 
-          <Link to="/">Home</Link>
             {
               isAuthenticated(props.users) &&(
                 <div>
-                  logged in
-                  <Link to="/logout">Logout</Link>
-
+                  {/* logged in */}
+                  <nav>
+                    <ul>
+                      <li className="logo">Author</li>
+                    </ul>
+                  
+                    <ul>
+                      <li><Link to="/logout">Logout</Link></li>
+                    </ul>  
+                  </nav>
                   <Switch>
                     <Route path="/" component={Story} exact={true}/>
                     <Route path="/login" component={Story} exact={true}/>
@@ -63,10 +69,20 @@ function App(props) {
             {
               !isAuthenticated(props.users) &&(
                 <div>
-                  logged out
-                  <Link to="/login">Login</Link><br/>
-                  <Link to="/register">Register</Link><br/>
-
+                  {/* logged out */}
+                  <nav>
+                    <ul>
+                      <li className="logo">Author</li>
+                    </ul>
+                  
+                    <ul>
+                      <li><Link to="/">  Home </Link></li>
+                      <li><Link to="/">  About </Link></li>
+                      <li><Link to="/">  Mission </Link></li>
+                      <li><Link to="/login">Login</Link></li>
+                      <li><Link to="/register">Register</Link></li>
+                    </ul>  
+                  </nav>
                   <Switch>
                     <Route path="/" component={Home} exact={true}/>
                     <Route path="/login" component={LoginForm} exact={true}/>
