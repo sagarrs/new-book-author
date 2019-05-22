@@ -1,15 +1,20 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {BrowserRouter, Link, Route, Switch} from 'react-router-dom'
+
 import LoginForm from './components/authentication/Login'
 import Home from './components/layout/Home'
 import Register from './components/authentication/Register'
-import Story from './components/stories/Story'
+import Story from './components/stories/ListStory'
 import {startLogout} from './redux/actions/logout'
 import {isAuthenticated} from '../src/commons/isAuth'
+
+import StoryNew from './components/stories/NewStory'
+
 import './App.css';
 
 function App(props) {
+  console.log("in app.js")
   console.log(props.users)
   return (
     <BrowserRouter>
@@ -34,6 +39,23 @@ function App(props) {
                 <div>
                   logged in
                   <Link to="/logout">Logout</Link>
+
+                  <Switch>
+                    <Route path="/" component={Story} exact={true}/>
+                    <Route path="/login" component={Story} exact={true}/>
+                    <Route path="/register" component={Story} exact={true}/>
+                    <Route path="/story" component={Story} exact={true}/>
+                    <Route path="/story/new" component={StoryNew}/>
+
+                    <Route path="/logout" component={() => {
+                      return (
+                        <div>
+                          {props.dispatch(startLogout())}
+                          <Link to="/" className="btn btn-outline-success">Redirect To Home</Link>
+                        </div>
+                      )
+                    }}/>
+                  </Switch>
                 </div>
               )
             }
@@ -41,9 +63,17 @@ function App(props) {
             {
               !isAuthenticated(props.users) &&(
                 <div>
-                  logged in
+                  logged out
                   <Link to="/login">Login</Link><br/>
                   <Link to="/register">Register</Link><br/>
+
+                  <Switch>
+                    <Route path="/" component={Home} exact={true}/>
+                    <Route path="/login" component={LoginForm} exact={true}/>
+                    <Route path="/register" component={Register}/>
+                    <Route path="/story" component={LoginForm} exact={true}/>
+                    <Route path="/story/new" component={LoginForm} exact={true}/>
+                  </Switch>
                 </div>
               )
             }
@@ -52,11 +82,12 @@ function App(props) {
               <Link to="/login">Login</Link><br/>
               <Link to="/register">Register</Link><br/> */}
 
-            <Switch>
+            {/* <Switch>
               <Route path="/" component={Home} exact={true}/>
               <Route path="/login" component={LoginForm} exact={true}/>
               <Route path="/register" component={Register}/>
-              <Route path="/story" component={Story}/>
+              <Route path="/story" component={Story} exact={true}/>
+              <Route path="/story/new" component={StoryNew}/>
 
               <Route path="/logout" component={() => {
                 return (
@@ -66,7 +97,7 @@ function App(props) {
                   </div>
                 )
               }}/>
-            </Switch>
+            </Switch> */}
         </div>
     </BrowserRouter>
   );

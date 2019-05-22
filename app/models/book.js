@@ -26,10 +26,10 @@ const bookSchema = new Schema({
     user_id: [
 
     ],
-    language_id: [
+    language: [
 
     ],
-    genre_id: [
+    genre: [
 
     ],
     page_display_from: {

@@ -33,7 +33,7 @@ export const startLogin = (formData, props) => {
 
 export const getUser = () => {
     return (dispatch) => {
-        axios.get('/users/account')
+        axios.get('/users/account', {headers: {'x-auth': localStorage.getItem('token')}})
             .then((response) => {
                 dispatch(addUser(response.data))
             })
