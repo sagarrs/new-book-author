@@ -15,7 +15,7 @@ store.subscribe(() => {
 
 // store.dispatch(addUser({email: "user6@gmail.com", password: "user1234"}))
 
-// store.dispatch(getUser())
+store.dispatch(getUser())
 
 const app = (
     <Provider store={store}>
