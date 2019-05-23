@@ -2,6 +2,7 @@ import React from 'react'
 import Select from 'react-select'
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Form from 'react-bootstrap/FormGroup';
 
 class StoryForm extends React.Component{
     constructor(props){
@@ -51,7 +52,6 @@ class StoryForm extends React.Component{
         const tags = e.map((tag) => {
             return tag.value
         }) 
-        console.log(tags)
         this.setState(() => ({
             tagName: tags
         }))
@@ -67,7 +67,22 @@ class StoryForm extends React.Component{
             language: this.state.language,
             tagName: this.state.tagName
         }
-        console.log(formData)
+        // var formData = new FormData()
+        // formData.append("bookTitle", this.state.bookTitle)
+        // formData.append("bookBody", this.state.bookBody)
+        // formData.append("genre", this.state.genre)
+        // formData.append("language", this.state.language)
+        // formData.append("tagName", this.state.tagName)
+
+        // console.log("form data in Form.js")
+        // console.log(formData.get("bookTitle"))
+        // console.log(formData.get("bookBody"))
+        // console.log(formData.get("genre"))
+        // console.log(formData.get("language"))
+        // console.log(formData.get("tagName"))
+
+        this.props.handleSubmit(formData)
+        // this.props.dispatch(startAddStory(formData, this.props))
     }
 
     render(){
@@ -88,6 +103,7 @@ class StoryForm extends React.Component{
             { value: 'hindi', label: 'Hindi' },
             { value: 'english', label: 'English' },
           ]
+
         return(
             <div>
                 <h3>This is the form i was talking abt</h3>

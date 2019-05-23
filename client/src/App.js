@@ -10,12 +10,11 @@ import {startLogout} from './redux/actions/logout'
 import {isAuthenticated} from '../src/commons/isAuth'
 
 import StoryNew from './components/stories/NewStory'
+import ShowStory from './components/stories/ShowStory'
 
 import './App.css';
 
 function App(props) {
-  console.log("in app.js")
-  console.log(props.users)
   return (
     <BrowserRouter>
         <div className="container">
@@ -51,7 +50,8 @@ function App(props) {
                     <Route path="/login" component={Story} exact={true}/>
                     <Route path="/register" component={Story} exact={true}/>
                     <Route path="/story" component={Story} exact={true}/>
-                    <Route path="/story/new" component={StoryNew}/>
+                    <Route path="/story/new" component={StoryNew} exact={true}/>
+                    <Route path="/story/show/:id" component={ShowStory} />
 
                     <Route path="/logout" component={() => {
                       return (
