@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import {Provider} from 'react-redux'
 import {getUser} from './redux/actions/login'
+import {getBook} from './redux/actions/story'
 import configureStore from './redux/store/configureStore';
 
 const store = configureStore()
@@ -16,6 +17,7 @@ store.subscribe(() => {
 // store.dispatch(addUser({email: "user6@gmail.com", password: "user1234"}))
 
 store.dispatch(getUser())
+store.dispatch(getBook())
 
 const app = (
     <Provider store={store}>

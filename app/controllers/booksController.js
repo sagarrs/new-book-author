@@ -1,11 +1,22 @@
 const express = require("express")
 const router = express.Router()
 const {Book} = require("../models//book")
+const {authenticateUser} = require("../middlewares/authentication")
 
 router.get("/", (req, res) => {
     Book.find()
         .then((book) => {
             res.status("200").send(book)
+        })
+        .catch((err) => {
+            res.status("404").send(err)
+        })
+})
+
+router.get("/account", authenticateUser, (req, res) => {
+    Book.find({user_id: req.user._id})
+        .then((books) => {
+            res.send(books)
         })
         .catch((err) => {
             res.status("404").send(err)
@@ -29,9 +40,11 @@ router.get("/:id", (req, res) => {
         })
 })
 
-router.post("/", (req, res) => {
+router.post("/", authenticateUser, (req, res) => {
     const body = req.body
     const book = new Book(body)
+
+    book.user_id = req.user._id
 
     book.save()
         .then((book) => {

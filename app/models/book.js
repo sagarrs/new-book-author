@@ -23,9 +23,10 @@ const bookSchema = new Schema({
     comments: [
 
     ],
-    user_id: [
-
-    ],
+    user_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     language: [
 
     ],

@@ -23,7 +23,7 @@ export const startLogin = (formData, props) => {
                 // }))
             })
             .catch((err) => {
-                console.log("Login Error",err.response.data)
+                console.log("Login Error",err)
                 // this.setState(() => ({
                 //     notice: err.response.data.notice
                 // }))
