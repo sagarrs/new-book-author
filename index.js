@@ -4,6 +4,8 @@ const {mongoose} = require("./config/database")
 const {userRouter} = require("./app/controllers/usersController")
 const {bookRouter} = require("./app/controllers/booksController")
 const {tagRouter} = require("./app/controllers/tagsController")
+const {languageRouter} = require("./app/controllers/languagesController")
+const {genreRouter} = require("./app/controllers/genreController")
 
 const port = 3005
 
@@ -18,11 +20,13 @@ app.get("/", function(req, res){
 })
 
 // this is to make the upload folder static so that its available accross the app
-// app.use('/upload', express.static('upload'))
+app.use('/upload', express.static('upload'))
 
 app.use("/users", userRouter)
 app.use("/books", bookRouter)
 app.use("/tags", tagRouter)
+app.use("/languages", languageRouter)
+app.use("/genres", genreRouter)
 
 app.listen(port, function(){
     console.log("Listening on port", port)

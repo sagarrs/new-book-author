@@ -17,7 +17,6 @@ const Story = (props) => {
                 })
             } */}
 
-            
             <div className="card">
                 <div className="card-header">
                     Stories
@@ -27,16 +26,19 @@ const Story = (props) => {
                         props.stories[0] == "" ? (<h2>No Stories found</h2>) : (
                             props.stories.map((story) => {
                                 return (
-                                    <div>
-                                        <h5 className="card-title">{story[0].bookTitle}</h5>
-                                        <p className="card-text" key={story[0]._id}>{story[0].bookTitle}</p><br/>
-                                        <Link to={`/story/show/${story[0]._id}`} className="btn btn-outline-success">Go to story</Link><br/>
-                                    </div>
+                                    story.map((str) => {
+                                        return (
+                                            <div key={str._id}>
+                                                <h5 className="card-title">{str.bookTitle}</h5>
+                                                <p className="card-text" key={str._id}>{str.bookBody}</p><br/>
+                                                <Link to={`/story/show/${str._id}`} className="btn btn-outline-success">Go to story</Link><br/>
+                                            </div>
+                                        )
+                                    })
                                 )
                             })
                         )
-                    }
-                    
+                    } 
                 </div>
             </div><br/>
 

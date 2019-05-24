@@ -3,15 +3,45 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 const ShowStory = (props) => {
+    props.stories.forEach(element => {
+        element.find((ele) => {
+            if(ele._id == props.match.params.id){
+                console.log(ele)
+            }
+        })
+    })
+    
     return(
         <div style={{paddingTop: 100}}>
             <h1>Edit and Delete here</h1>
 
             {
+                props.stories.forEach(element => {
+                        return(
+                            element.find((ele) => {
+                                if(ele._id == props.match.params.id){
+                                    console.log(ele.bookBody)
+                                }
+                            })
+                        )
+                    })
+            } 
+
+            {/* {
                 props.stories.map((story) => {
-                    return <li key={story[0]._id} id={story[0]._id}>{story[0].bookTitle}</li>
+                    return (
+                        story.map((str) => {
+                            return (
+                                <div key={str._id}>
+                                    <h5 className="card-title">{str.bookTitle}</h5>
+                                    <p className="card-text" key={str._id}>{str.bookBody}</p><br/>
+                                    <Link to={`/story/show/${str._id}`} className="btn btn-outline-success">Go to story</Link><br/>
+                                </div>
+                            )
+                        })
+                    )
                 })
-            }
+            }  */}
 
             
             <p className="text-info">Title - dummy</p>
@@ -30,9 +60,11 @@ const ShowStory = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
+    const id = props.match.params.id
     return {
-        stories: state.stories
+        // clients: state.clients.find(client => client.id == id)
+        stories: state.stories,
     }
 }
 
