@@ -12,7 +12,8 @@ class StoryForm extends React.Component{
             bookBody: '',
             genre: '',
             language: '',
-            tagName: ''
+            tagName: '',
+            previewImageUrl: null
         }
     }
 
@@ -57,31 +58,38 @@ class StoryForm extends React.Component{
         }))
     }
 
+    handleFile = (e) => {
+        this.setState({previewImageUrl: e.target.files[0]})
+    }
+
     handleSubmit = (e) => {
         e.preventDefault()
         console.log("submitted")
-        const formData = {
-            bookTitle: this.state.bookTitle,
-            bookBody: this.state.bookBody,
-            genre: this.state.genre,
-            language: this.state.language,
-            tagName: this.state.tagName
-        }
-        // var formData = new FormData()
-        // formData.append("bookTitle", this.state.bookTitle)
-        // formData.append("bookBody", this.state.bookBody)
-        // formData.append("genre", this.state.genre)
-        // formData.append("language", this.state.language)
-        // formData.append("tagName", this.state.tagName)
+        // const formData = {
+        //     bookTitle: this.state.bookTitle,
+        //     bookBody: this.state.bookBody,
+        //     genre: this.state.genre,
+        //     language: this.state.language,
+        //     tagName: this.state.tagName
+        // }
+        var formData = new FormData()
+        formData.append("bookTitle", this.state.bookTitle)
+        formData.append("bookBody", this.state.bookBody)
+        formData.append("genre", this.state.genre)
+        formData.append("language", this.state.language)
+        formData.append("tagName", this.state.tagName)
+        formData.append("previewImageUrl", this.state.previewImageUrl)
 
-        // console.log("form data in Form.js")
-        // console.log(formData.get("bookTitle"))
-        // console.log(formData.get("bookBody"))
-        // console.log(formData.get("genre"))
-        // console.log(formData.get("language"))
-        // console.log(formData.get("tagName"))
+        console.log("form data in Form.js")
+        console.log(formData.get("bookTitle"))
+        console.log(formData.get("bookBody"))
+        console.log(formData.get("genre"))
+        console.log(formData.get("language"))
+        console.log(formData.get("tagName"))
+        console.log(formData.get("previewImageUrl"))
 
         this.props.handleSubmit(formData)
+
         // this.props.dispatch(startAddStory(formData, this.props))
     }
 
@@ -126,6 +134,10 @@ class StoryForm extends React.Component{
                             } }
                         />
                     </label><br/>
+                    <div> 
+                        Image
+                        <input type="file" name="previewImageUrl" onChange={this.handleFile}/>
+                    </div><br/>
                     <div> 
                         Genre:
                         <Select

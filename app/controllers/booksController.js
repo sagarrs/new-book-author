@@ -2,6 +2,32 @@ const express = require("express")
 const router = express.Router()
 const {Book} = require("../models//book")
 const {authenticateUser} = require("../middlewares/authentication")
+const multer = require("multer")
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, './upload/')
+    },
+    filename: function(req, file, cb){
+        cb(null, new Date().toString() + file.originalname)
+    }
+})
+
+const fileFilter = (req, file, cb) => {
+    if(file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+        cb(null, true)
+    }else{
+        cb(null, false)
+    }
+}
+
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5
+    },
+    fileFilter: fileFilter
+})
 
 router.get("/", (req, res) => {
     Book.find()
@@ -40,14 +66,45 @@ router.get("/:id", (req, res) => {
         })
 })
 
-router.post("/", authenticateUser, (req, res) => {
+router.post("/", authenticateUser, upload.single('previewImageUrl'),(req, res) => {
     const body = req.body
-    const book = new Book(body)
+    // const book = new Book(body)
+
+    const book = new Book({
+        bookTitle: req.body.bookTitle,
+        bookBody: req.body.bookBody,
+        language: req.body.language,
+        genre: req.body.genre,
+        tagName: req.body.tagName,
+        previewImageUrl: req.file.path
+    })
+
+    console.log(book)
 
     book.user_id = req.user._id
 
     book.save()
         .then((book) => {
+            console.log("tag")
+            if(book.tagName){
+                return book.updateTags(book.tagName, book._id)
+            }
+        })
+        .then((tag) => {
+            // res.status("200").send(book)
+            console.log("language")
+            if(book.language){
+                return book.updateLanguage(book.language, book._id)
+            }
+        })
+        .then((language) => {
+            console.log("genre")
+            if(book.genre){
+                return book.updateGenre(book.genre, book._id)
+            }
+        })
+        .then((genre) => {
+            console.log("book will be sent here")
             res.status("200").send(book)
         })
         .catch((err) => {
