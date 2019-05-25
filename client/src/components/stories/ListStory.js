@@ -2,6 +2,10 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 
+import {  Row, Col, Card, Button, Form} from 'react-bootstrap'
+import download from "../../images/download.jpeg"
+import StarRatings from '../../../node_modules/react-star-ratings';
+
 const Story = (props) => {
     console.log("this is to check the state of books in 'list story'")
     console.log(props.stories[0])
@@ -9,40 +13,50 @@ const Story = (props) => {
     //     console.log(story[0].bookTitle)
     // })
     return(
-        <div style={{paddingTop: 100}}>
-            <h1>Here's the story </h1>
-            {/* {
-                props.stories.map((story) => {
-                    return <li key={story[0]._id} id={story[0]._id}>{story[0].bookTitle}</li>
-                })
-            } */}
-
-            <div className="card">
-                <div className="card-header">
-                    Stories
-                </div>
-                <div className="card-body">
-                    {
-                        props.stories[0] == "" ? (<h2>No Stories found</h2>) : (
-                            props.stories.map((story) => {
-                                return (
-                                    story.map((str) => {
-                                        return (
-                                            <div key={str._id}>
-                                                <h5 className="card-title">{str.bookTitle}</h5>
-                                                <p className="card-text" key={str._id}>{str.bookBody}</p><br/>
-                                                <Link to={`/story/show/${str._id}`} className="btn btn-outline-success">Go to story</Link><br/>
-                                            </div>
-                                        )
-                                    })
-                                )
-                            })
-                        )
-                    } 
-                </div>
-            </div><br/>
-
-            <Link to="/story/new" className="btn btn-outline-success">Add new Story</Link>
+        <div className="container-fluid" >
+            <div className="row">
+                <div className="col-sm-9"> <h2>Listing Books </h2> <br></br>
+                    <Row>
+                        {
+                            props.stories[0] == "" ? (<h2>No Stories found</h2>) : (
+                                props.stories.map((story) => {
+                                    return (
+                                        story.map((str) => {
+                                            return (
+                                                <div className="col-sm-4">
+                                                    <Card style={{ width: '20rem' }}> 
+                                                        <Card.Img variant="Left" src={download}/>
+                                                            <Card.Body>
+                                                                <Card.Title><b>{str.bookTitle}</b></Card.Title>
+                                                                    <Card.Text>
+                                                                    <b> Book Title </b> : {str.bookTitle}<br></br>
+                                                                    <b> Book Body </b> : {str.bookBody}<br></br>
+                                                                    <b> Languages </b> : {str.language}<br></br>
+                                                                    <b> Rating </b> : 
+                                                                    <StarRatings
+                                                                        rating={4}
+                                                                        starRatedColor="blue"
+                                                                        // changeRating={this.changeRating}
+                                                                        numberOfStars={5}
+                                                                        starDimension="20px"
+                                                                        starSpacing="2px"
+                                                                        />
+                                                                    </Card.Text>
+                                                                    <Link to={`/story/show/${str._id}`} className="btn btn-outline-success">Go to story</Link>
+                                                                    {/* <Button variant="primary">View Book</Button> */}
+                                                                <br></br>
+                                                            </Card.Body>
+                                                    </Card><br></br><br></br>  
+                                                </div> 
+                                            )
+                                        })
+                                    )
+                                })
+                            )
+                        } 
+                    </Row>                  
+                </div>  
+            </div>
         </div>
     )
 }

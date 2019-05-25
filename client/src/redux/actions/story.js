@@ -4,7 +4,9 @@ import axios from '../../config/axios'
 export const addStory = (book) => {
     return{
         type: "ADD_STORY",
-        payload: book
+        payload: {
+            book
+        }
     }
 }
 
@@ -26,6 +28,8 @@ export const getBook = () => {
     return (dispatch) => {
         axios.get('/books/account', {headers: {'x-auth': localStorage.getItem('token')}})
             .then((response) => {
+                console.log("this is in stories action")
+                console.log(response.data)
                 dispatch(addStory(response.data))
             })
             .catch((err) => {
