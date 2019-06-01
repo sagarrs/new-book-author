@@ -6,13 +6,15 @@ import Form from 'react-bootstrap/FormGroup';
 
 class StoryForm extends React.Component{
     constructor(props){
+        console.log("consstructor")
+        console.log(props.stories)
         super(props)
         this.state = {
-            bookTitle: '',
-            bookBody: '',
-            genre: '',
-            language: '',
-            tagName: '',
+            bookTitle: props.stories ? props.stories.bookTitle : '',
+            bookBody: props.stories ? props.stories.bookBody : '',
+            genre: props.stories ? props.stories.genre : '',
+            language: props.stories ? props.stories.language : '',
+            tagName: props.stories ? props.stories.tagName : '',
             previewImageUrl: null
         }
     }
@@ -93,7 +95,22 @@ class StoryForm extends React.Component{
         // this.props.dispatch(startAddStory(formData, this.props))
     }
 
+    // static getDerivedStateFromProps(nextProps, prevState){
+    //     console.log("getDerivedStateFromProps")
+
+    //     if(nextProps.stories._id != prevState._id){
+    //         return{
+    //             bookTitle: nextProps.stories.bookTitle,
+    //             bookBody: nextProps.stories.bookBody,
+    //             genre: nextProps.stories.genre,
+    //             language: nextProps.stories.language,
+    //             tagName: nextProps.stories.tagName,
+    //         }
+    //     }
+    // }
+
     render(){
+
         const options1 = [
             { value: 'fantasy', label: 'Fantasy' },
             { value: 'sciencefiction', label: 'ScienceFiction' },
@@ -118,13 +135,13 @@ class StoryForm extends React.Component{
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Book Title:
-                        <input type="text" name="bookTitle" className="form-control" onChange={this.handleTitle}/>
+                        <input type="text" name="bookTitle" value={this.state.bookTitle} className="form-control" onChange={this.handleTitle}/>
                     </label><br/>
                     <label>
                         Book Body: 
                         <CKEditor
                             editor={ ClassicEditor }
-                            // data={this.state.body}
+                            data={this.state.bookBody}
                             onInit={ editor => {
                             } }
                             onChange={this.handleBody}
@@ -142,34 +159,36 @@ class StoryForm extends React.Component{
                         Genre:
                         <Select
                             isMulti
-                            name="colors"
+                            name="genre"
                             options={options1}
                             className="basic-multi-select"
                             classNamePrefix="select"
                             onChange={this.handleGenre}
+                            // value={this.state.genre}
                         />
                     </div><br/>
                     <div> 
                         Language:
                         <Select
                             isMulti
-                            name="colors"
+                            name="language"
                             options={options2}
                             className="basic-multi-select"
                             classNamePrefix="select"
                             onChange={this.handleLanguage}
+                            // value={this.state.language}
                         />
                     </div><br/>
                     <div> 
                         Tags:
                         <Select
-                            // defaultValue={[options[2], options[3]]}
                             isMulti
-                            name="colors"
+                            name="tagName"
                             options={options1}
                             className="basic-multi-select"
                             classNamePrefix="select"
                             onChange={this.handleTags}
+                            // value={this.state.tagName}
                         />
                     </div><br/>
                     <label>
@@ -177,6 +196,8 @@ class StoryForm extends React.Component{
                     </label>
                 </form>
             </div>
+
+            
         )
     }
 }
