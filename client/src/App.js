@@ -11,6 +11,7 @@ import {isAuthenticated} from '../src/commons/isAuth'
 
 import StoryNew from './components/stories/NewStory'
 import ShowStory from './components/stories/ShowStory'
+import EditStory from './components/stories/EditStory'
 
 import './App.css';
 
@@ -51,7 +52,8 @@ function App(props) {
                     <Route path="/register" component={Story} exact={true}/>
                     <Route path="/story" component={Story} exact={true}/>
                     <Route path="/story/new" component={StoryNew} exact={true}/>
-                    <Route path="/story/show/:id" component={ShowStory} />
+                    <Route path="/story/show/:id" component={ShowStory} exact={true}/>
+                    <Route path="/story/edit/:id" component={EditStory} />
 
                     <Route path="/logout" component={() => {
                       return (
